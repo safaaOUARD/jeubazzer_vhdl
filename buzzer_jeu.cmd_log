@@ -1,0 +1,1 @@
+xst -ise "C:/Xilinx92i/D/exercice1/JeuBazzer/JeuBazzer.ise" -intstyle ise -ifn buzzer_jeu.xst -ofn buzzer_jeu.syr

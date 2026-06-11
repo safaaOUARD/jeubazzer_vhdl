@@ -1,0 +1,180 @@
+--------------------------------------------------------------------------------
+-- Copyright (c) 1995-2007 Xilinx, Inc.
+-- All Right Reserved.
+--------------------------------------------------------------------------------
+--   ____  ____ 
+--  /   /\/   / 
+-- /___/  \  /    Vendor: Xilinx 
+-- \   \   \/     Version : 9.2i
+--  \   \         Application : ISE
+--  /   /         Filename : jeubazzertest.ant
+-- /___/   /\     Timestamp : Thu Apr 23 09:32:33 2026
+-- \   \  /  \ 
+--  \___\/\___\ 
+--
+--Command: 
+--Design Name: jeubazzertest
+--Device: Xilinx
+--
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_TEXTIO.ALL;
+USE IEEE.STD_LOGIC_ARITH.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE STD.TEXTIO.ALL;
+
+ENTITY jeubazzertest IS
+END jeubazzertest;
+
+ARCHITECTURE testbench_arch OF jeubazzertest IS
+    FILE RESULTS: TEXT OPEN WRITE_MODE IS "C:\Xilinx92i\D\exercice1\JeuBazzer\jeubazzertest.ano";
+
+    COMPONENT buzzer_jeu
+        PORT (
+            B1 : In std_logic;
+            B2 : In std_logic;
+            B3 : In std_logic;
+            RST : In std_logic;
+            L1 : Out std_logic;
+            L2 : Out std_logic;
+            L3 : Out std_logic
+        );
+    END COMPONENT;
+
+    SIGNAL B1 : std_logic := '0';
+    SIGNAL B2 : std_logic := '0';
+    SIGNAL B3 : std_logic := '0';
+    SIGNAL RST : std_logic := '0';
+    SIGNAL L1 : std_logic := '0';
+    SIGNAL L2 : std_logic := '0';
+    SIGNAL L3 : std_logic := '0';
+
+    SHARED VARIABLE TX_ERROR : INTEGER := 0;
+    SHARED VARIABLE TX_OUT : LINE;
+
+    constant PERIOD : time := 200 ns;
+    constant DUTY_CYCLE : real := 0.5;
+    constant OFFSET : time := 100 ns;
+
+    BEGIN
+        UUT : buzzer_jeu
+        PORT MAP (
+            B1 => B1,
+            B2 => B2,
+            B3 => B3,
+            RST => RST,
+            L1 => L1,
+            L2 => L2,
+            L3 => L3
+        );
+
+        PROCESS    -- clock process for B1
+        BEGIN
+            WAIT for OFFSET;
+            CLOCK_LOOP : LOOP
+                B1 <= '0';
+                WAIT FOR (PERIOD - (PERIOD * DUTY_CYCLE));
+                B1 <= '1';
+                WAIT FOR (PERIOD * DUTY_CYCLE);
+            END LOOP CLOCK_LOOP;
+        END PROCESS;
+
+        PROCESS    -- Annotation process for B1
+            VARIABLE TX_TIME : INTEGER := 0;
+
+            PROCEDURE ANNOTATE_L1(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", L1, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, L1);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_L2(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", L2, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, L2);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+            PROCEDURE ANNOTATE_L3(
+                TX_TIME : INTEGER
+            ) IS
+                VARIABLE TX_STR : String(1 to 4096);
+                VARIABLE TX_LOC : LINE;
+            BEGIN
+                STD.TEXTIO.write(TX_LOC, string'("Annotate["));
+                STD.TEXTIO.write(TX_LOC, TX_TIME);
+                STD.TEXTIO.write(TX_LOC, string'(", L3, "));
+                IEEE.STD_LOGIC_TEXTIO.write(TX_LOC, L3);
+                STD.TEXTIO.write(TX_LOC, string'("]"));
+                TX_STR(TX_LOC.all'range) := TX_LOC.all;
+                STD.TEXTIO.writeline(RESULTS, TX_LOC);
+                STD.TEXTIO.Deallocate(TX_LOC);
+            END;
+        BEGIN
+            WAIT for 1 fs;
+            ANNOTATE_L1(0);
+            ANNOTATE_L2(0);
+            ANNOTATE_L3(0);
+            WAIT for OFFSET;
+            TX_TIME := TX_TIME + 100;
+            ANNO_LOOP : LOOP
+                --Rising Edge
+                WAIT for 115 ns;
+                TX_TIME := TX_TIME + 115;
+                ANNOTATE_L1(TX_TIME);
+                ANNOTATE_L2(TX_TIME);
+                ANNOTATE_L3(TX_TIME);
+                WAIT for 85 ns;
+                TX_TIME := TX_TIME + 85;
+            END LOOP ANNO_LOOP;
+        END PROCESS;
+
+        PROCESS
+            BEGIN
+                -- -------------  Current Time:  185ns
+                WAIT FOR 185 ns;
+                RST <= '1';
+                -- -------------------------------------
+                -- -------------  Current Time:  385ns
+                WAIT FOR 200 ns;
+                B2 <= '1';
+                RST <= '0';
+                -- -------------------------------------
+                -- -------------  Current Time:  585ns
+                WAIT FOR 200 ns;
+                B2 <= '0';
+                B3 <= '1';
+                -- -------------------------------------
+                -- -------------  Current Time:  785ns
+                WAIT FOR 200 ns;
+                B3 <= '0';
+                -- -------------------------------------
+                WAIT FOR 415 ns;
+
+                STD.TEXTIO.write(TX_OUT, string'("Total[]"));
+                STD.TEXTIO.writeline(RESULTS, TX_OUT);
+                ASSERT (FALSE) REPORT
+                    "Success! Simulation for annotation completed"
+                    SEVERITY FAILURE;
+            END PROCESS;
+
+    END testbench_arch;
+

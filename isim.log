@@ -1,0 +1,33 @@
+ command line:
+   ./jeubazzertest_isim_beh.exe
+     -intstyle  ise
+     -ipchost  localhost
+     -ipcport  1056
+
+Thu Jun 11 07:03:32 2026
+
+Total Line Count : 71
+
+ Elaboration time : 0.015625 sec.
+
+ Estimate current memory usage : 116.462 Meg. 
+
+ Total Signals          : 18
+ Total Nets             : 11
+ Total Signal Drivers   : 11
+ Total Blocks           : 7
+ Total Primitive Blocks : 1
+ Total Processes        : 9
+ Total Traceable Variables  : 0
+ Total Scalar Nets and Variables : 11
+ntrace select -o on -n /jeubazzertest/b1 
+ntrace select -o on -n /jeubazzertest/b2 
+ntrace select -o on -n /jeubazzertest/b3 
+ntrace select -o on -n /jeubazzertest/rst 
+ntrace select -o on -n /jeubazzertest/l1 
+ntrace select -o on -n /jeubazzertest/l2 
+ntrace select -o on -n /jeubazzertest/l3 
+ntrace start 
+isimrun 1000 ns 
+Simulator is doing circuit initialization process.
+Finished circuit initialization process.

@@ -1,0 +1,6 @@
+V3 3
+FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd 2026/04/23.09:22:06 J.36
+EN work/buzzer_jeu 1781186601 FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd \
+      PB ieee/std_logic_1164 1177545575
+AR work/buzzer_jeu/Behavioral 1781186602 \
+      FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd EN work/buzzer_jeu 1781186601

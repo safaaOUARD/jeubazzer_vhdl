@@ -1,0 +1,4 @@
+AR buzzer_jeu behavioral C:/Xilinx92i/D/exercice1/JeuBazzer/jeuBazzer.vhd sub00/vhpl01 1776961929
+EN buzzer_jeu NULL C:/Xilinx92i/D/exercice1/JeuBazzer/jeuBazzer.vhd sub00/vhpl00 1776961928
+AR jeubazzertest testbench_arch C:/Xilinx92i/D/exercice1/JeuBazzer/jeubazzertest.vhw sub00/vhpl03 1776961969
+EN jeubazzertest NULL C:/Xilinx92i/D/exercice1/JeuBazzer/jeubazzertest.vhw sub00/vhpl02 1776961968

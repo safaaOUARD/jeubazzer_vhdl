@@ -1,0 +1,14 @@
+V3 7
+FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd 2026/04/23.09:22:06 J.36
+EN work/buzzer_jeu 1776961928 FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd \
+      PB ieee/std_logic_1164 1179176983
+AR work/buzzer_jeu/Behavioral 1776961929 \
+      FL $XILINX/D/exercice1/JeuBazzer/jeuBazzer.vhd EN work/buzzer_jeu 1776961928
+FL $XILINX/D/exercice1/JeuBazzer/jeubazzertest.vhw 2026/04/23.09:32:33 J.36
+EN work/jeubazzertest 1776961968 \
+      FL $XILINX/D/exercice1/JeuBazzer/jeubazzertest.vhw PB ieee/std_logic_1164 1179176983 \
+      PB ieee/STD_LOGIC_TEXTIO 1179176993 PB ieee/std_logic_arith 1179176985 \
+      PB ieee/STD_LOGIC_UNSIGNED 1179176991 PB std/textio 1179176969
+AR work/jeubazzertest/testbench_arch 1776961969 \
+      FL $XILINX/D/exercice1/JeuBazzer/jeubazzertest.vhw EN work/jeubazzertest 1776961968 \
+      CP buzzer_jeu

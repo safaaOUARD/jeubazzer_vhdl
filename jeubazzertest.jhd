@@ -1,0 +1,3 @@
+MODULE jeubazzertest
+SUBMODULE buzzer_jeu
+INSTANCE UUT
